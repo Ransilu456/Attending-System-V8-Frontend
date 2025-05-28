@@ -4,30 +4,24 @@ import ToastHelper from '../components/ToastHelper';
 const attendanceService = {
   markAttendanceQR: async (qrData) => {
     try {
-      // Prepare scan data based on the type of qrData received
       let scanData;
       
       if (typeof qrData === 'object') {
-        // If it's already an object, use it directly
         scanData = {
           qrData,
           deviceInfo: navigator.userAgent,
           scanLocation: 'QR Scanner'
         };
       } else {
-        // For non-JSON format QR codes, we need to handle them differently
-        // Check if it's a numeric code format (like "1662 1625 0047 1413 2239 3431 1191 1875")
         const isNumericFormat = /^\d{4}(\s+\d{4}){7}$/.test(qrData.trim());
         
         if (isNumericFormat) {
-          // Pass the numeric code directly for the backend to convert to MongoDB ID
           scanData = {
             qrData: qrData.trim(),
             deviceInfo: navigator.userAgent,
             scanLocation: 'QR Scanner'
           };
         } else {
-          // For other string formats, try as direct student ID
           scanData = {
             qrData: { studentId: qrData.trim() },
             deviceInfo: navigator.userAgent,
@@ -49,12 +43,8 @@ const attendanceService = {
     } catch (error) {
       console.error('Error marking QR attendance:', error);
       
-      // Handle specific error cases
       if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
         if (error.response.status === 400) {
-          // Check if it's specifically a "student not found" error
           if (error.response.data?.message?.includes('student') && 
               error.response.data?.message?.includes('not found')) {
             ToastHelper.error('Student not found. Please check the QR code and try again.');
@@ -69,14 +59,11 @@ const attendanceService = {
           ToastHelper.error(error.response.data?.message || 'Failed to process QR code');
         }
       } else if (error.request) {
-        // The request was made but no response was received
         ToastHelper.error('No response from server. Please check your connection and try again.');
       } else {
-        // Something happened in setting up the request that triggered an Error
         ToastHelper.error('Error processing QR code. Please try again later.');
       }
-      
-      // Return a standardized error object that can be used by the component
+
       return {
         success: false,
         error: error.response?.data?.message || error.message || 'Failed to process QR code',
@@ -144,8 +131,7 @@ const attendanceService = {
   getTodayAttendance: async () => {
     try {
       const response = await api.get('/attendance/today');
-      
-      // Check if the data is in the new format (nested in data object)
+
       if (response.data?.data) {
         return {
           students: response.data.data.students || [],
@@ -153,7 +139,6 @@ const attendanceService = {
         };
       }
       
-      // Fallback to the old format
       return {
         students: response.data?.students || [],
         stats: response.data?.stats || {}
@@ -169,7 +154,6 @@ const attendanceService = {
     try {
       const response = await api.get('/attendance/today');
       
-      // Check if the data is in the new format (nested in data object)
       if (response.data?.data) {
         return {
           students: response.data.data.students || [],
@@ -177,7 +161,6 @@ const attendanceService = {
         };
       }
       
-      // Fallback to the old format
       return {
         students: response.data?.students || [],
         stats: response.data?.stats || {}
@@ -199,7 +182,7 @@ const attendanceService = {
       const formattedDate = new Date(date).toISOString().split('T')[0];
       const response = await api.get(`/attendance/${formattedDate}`);
       
-      // Check if the data is in the new format (nested in data object)
+
       if (response.data?.data) {
         return {
           students: response.data.data.students || [],
@@ -207,7 +190,6 @@ const attendanceService = {
         };
       }
       
-      // Fallback to the old format
       return {
         students: response.data?.students || [],
         stats: response.data?.stats || {}
