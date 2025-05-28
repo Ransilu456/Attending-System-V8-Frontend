@@ -21,6 +21,7 @@ const StudentsPage = () => {
     student_email: "",
     parent_email: "",
     parent_telephone: "",
+    age: 0,
   });
   const [searchTerm, setSearchTerm] = useState("");
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -79,7 +80,6 @@ const StudentsPage = () => {
       setLoading(true);
       const response = await studentService.getAllStudents();
       
-      // Handle the response which now always returns { students: [] } format
       const studentsArr = response?.students || [];
       setStudents(studentsArr);
       
@@ -88,7 +88,7 @@ const StudentsPage = () => {
       }
     } catch (error) {
       console.error("Error fetching students:", error);
-      setStudents([]); // fallback to empty array on error
+      setStudents([]); 
     } finally {
       setLoading(false);
     }
@@ -109,6 +109,7 @@ const StudentsPage = () => {
       student_email: student.student_email || "",
       parent_email: student.parent_email || "",
       parent_telephone: student.parent_telephone || "",
+      age: student.age,
     });
     setShowEditModal(true);
   };
@@ -550,6 +551,22 @@ const StudentsPage = () => {
                           name="parent_telephone"
                           id="edit-parent_telephone"
                           value={formData.parent_telephone}
+                          onChange={handleInputChange}
+                          className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white sm:text-sm transition-colors duration-200"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="edit-age"
+                          className="block text-sm font-medium text-gray-700 dark:text-gray-300 text-left"
+                        >
+                          Age
+                        </label>
+                        <input
+                          type="text"
+                          name="age"
+                          id="edit-age"
+                          value={formData.age}
                           onChange={handleInputChange}
                           className="mt-1 block w-full border border-gray-300 dark:border-slate-600 rounded-lg shadow-sm py-2 px-3 focus:outline-none focus:ring-blue-500 focus:border-blue-500 dark:bg-slate-700 dark:text-white sm:text-sm transition-colors duration-200"
                         />
