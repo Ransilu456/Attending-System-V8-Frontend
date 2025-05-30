@@ -461,7 +461,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
           </div>
         </motion.div>
 
-        {/* Enhanced Charts with better visualization and interactivity */}
+        
         <motion.div
           className="col-span-12 md:col-span-7 bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl shadow p-3 sm:p-5"
           whileHover={isSmallScreen ? {} : {
@@ -557,7 +557,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
 
         {/* Recent activity */}
         <motion.div
-          className={` ${screenSize === "small" ? "hidden" : ""} col-span-4 bg-white dark:bg-slate-800 rounded-xl p-4 dark:shadow-slate-900/50`}
+          className={` ${screenSize === "small" ? "hidden" : ""} w-full col-span-12 bg-white dark:bg-slate-800 rounded-xl p-4 dark:shadow-slate-900/50`}
           whileHover={{ y: -5, boxShadow: "0 10px 25px rgba(0, 0, 0, 0.1)" }}
         >
           <h3 className="text-gray-700 dark:text-gray-300 text-sm font-medium mb-3">
