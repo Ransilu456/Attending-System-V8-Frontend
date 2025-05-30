@@ -16,38 +16,20 @@ import {
   FileText,
   ArrowRight,
   Star,
+  Bell,
+  TrendingUp,
+  Clock,
+  Shield,
+  Mail,
 } from "lucide-react";
 import ThemeToggle from "../../components/ui/ThemeToggle";
 
 const navigation = [
   { name: "Dashboard", href: "/dashboard", icon: BarChart, badge: "New" },
   { name: "Students", href: "/dashboard/students", icon: Users, badge: "8" },
-  {
-    name: "QR Scanner",
-    href: "/dashboard/scanner",
-    icon: QrCode,
-    badge: "Scan",
-  },
-  {
-    name: "Attendance",
-    href: "/dashboard/attendance",
-    icon: Calendar,
-    badge: "New",
-  },
-  {
-    name: "Reports",
-    href: "/dashboard/reports",
-    icon: BarChart,
-    badge: "Updated",
-  },
-
-  {
-    name: "Settings",
-    href: "/dashboard/settings",
-    icon: Settings,
-    badge: "Pro",
-  },
-
+  { name: "QR Scanner", href: "/dashboard/scanner", icon: QrCode, badge: "Scan" },
+  { name: "Attendance", href: "/dashboard/attendance", icon: Calendar, badge: "New" },
+  { name: "Reports", href: "/dashboard/reports", icon: BarChart, badge: "Updated" }
 ];
 
 const navItemVariants = {
@@ -78,7 +60,6 @@ const Navbar = memo(() => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { isAuthenticated } = useAuth();
 
-  // Track scroll position with throttling for performance
   useEffect(() => {
     let ticking = false;
     const handleScroll = () => {
@@ -102,15 +83,13 @@ const Navbar = memo(() => {
 
   return (
     <motion.div
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${
-        scrolled
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${scrolled
           ? "backdrop-blur-md bg-white/90 dark:bg-slate-900/95 shadow-md dark:shadow-slate-900/30"
           : "backdrop-blur-sm bg-white/70 dark:bg-slate-900/80"
-      } border-b ${
-        scrolled
+        } border-b ${scrolled
           ? "border-gray-200/70 dark:border-slate-800/80"
           : "border-transparent"
-      }`}
+        }`}
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.3 }}
@@ -145,6 +124,7 @@ const Navbar = memo(() => {
 
           {/* Right actions */}
           <div className="flex items-center space-x-3 md:space-x-4">
+          
             <motion.div
               className="p-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 transition-colors"
               whileHover={{ scale: 1.05 }}
@@ -270,19 +250,17 @@ const NavigationItem = memo(({ item, index, activeTab, setActiveTab }) => {
       whileTap="tap"
     >
       <button
-        className={`group flex items-center justify-around p-2.5 w-full text-sm gap-2 font-medium rounded-lg ${
-          activeTab === item.name.toLowerCase()
+        className={`group flex items-center justify-around p-2.5 w-full text-sm gap-2 font-medium rounded-lg ${activeTab === item.name.toLowerCase()
             ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
             : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
-        }`}
+          }`}
         onClick={() => setActiveTab(item.name.toLowerCase())}
       >
         <item.icon
-          className={`mr-0 h-5 w-5 flex-shrink-0 ${
-            activeTab === item.name.toLowerCase()
+          className={`mr-0 h-5 w-5 flex-shrink-0 ${activeTab === item.name.toLowerCase()
               ? "text-blue-600 dark:text-blue-400"
               : "text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300"
-          }`}
+            }`}
           aria-hidden="true"
         />
         <span className="truncate">{item.name}</span>
@@ -297,9 +275,8 @@ const NavigationItem = memo(({ item, index, activeTab, setActiveTab }) => {
 const Sidebar = memo(({ activeTab, setActiveTab, screenSize }) => {
   return (
     <div
-      className={`${
-        screenSize === "small" ? "hidden" : "flex"
-      } flex-col border-r border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-200 shadow-md dark:shadow-slate-900/50`}
+      className={`${screenSize === "small" ? "hidden" : "flex"
+        } flex-col border-r border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-800 transition-colors duration-200 shadow-md dark:shadow-slate-900/50`}
     >
       {/* Logo */}
       <div className="flex flex-shrink-0 items-center h-14 px-4 overflow-hidden border-b border-gray-200 dark:border-slate-700">
@@ -366,7 +343,7 @@ const Sidebar = memo(({ activeTab, setActiveTab, screenSize }) => {
 const DashboardContent = memo(({ activeTab, screenSize }) => {
   // Optimize rendering based on screen size
   const isSmallScreen = useMemo(() => screenSize === "small", [screenSize]);
-  
+
   if (activeTab === "dashboard") {
     return (
       <div className="grid grid-cols-12 gap-3 sm:gap-4 h-full">
@@ -499,7 +476,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
             <h3 className="text-gray-700 dark:text-gray-300 text-xs sm:text-sm font-medium">
               Weekly Attendance
             </h3>
-            
+
             <div className="flex items-center gap-1 sm:gap-2 text-[10px] sm:text-xs">
               <div className="flex items-center">
                 <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-blue-500 mr-1"></div>
@@ -511,12 +488,12 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
               </div>
             </div>
           </div>
-          
+
           <div className="relative pt-6">
             {/* Target line - 80% */}
             <div className="absolute left-0 right-0 border-t border-dashed border-blue-300 dark:border-blue-700 opacity-40" style={{ top: '20%' }}></div>
             <div className="absolute left-1 text-[9px] sm:text-[10px] text-blue-400 dark:text-blue-500" style={{ top: 'calc(20% - 12px)' }}>80%</div>
-            
+
             {/* Chart grid lines */}
             <div className="absolute left-0 right-0 h-[1px] bg-gray-200 dark:bg-gray-700 opacity-30" style={{ top: '25%' }}></div>
             <div className="absolute left-0 right-0 h-[1px] bg-gray-200 dark:bg-gray-700 opacity-30" style={{ top: '50%' }}></div>
@@ -545,12 +522,12 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
                       {/* Highlight effect on top of the bar */}
                       <div className="absolute top-0 left-0 right-0 h-1 bg-white opacity-30 rounded-t-md"></div>
                     </div>
-                    
+
                     {/* Day label */}
                     <div className="absolute -bottom-5 sm:-bottom-6 left-1/2 transform -translate-x-1/2 text-[10px] sm:text-xs text-gray-500 dark:text-gray-400">
                       {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][index]}
                     </div>
-                    
+
                     {/* Value tooltip */}
                     <div className="absolute -top-6 left-1/2 transform -translate-x-1/2 bg-gray-800 dark:bg-gray-700 text-white px-1.5 py-0.5 rounded opacity-0 group-hover:opacity-100 transition-opacity text-[10px] sm:text-xs z-10 whitespace-nowrap">
                       {value}% attendance
@@ -560,7 +537,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
               })}
             </div>
           </div>
-          
+
           {/* Additional insights row */}
           <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700 grid grid-cols-3 gap-2 text-center">
             <div>
@@ -654,16 +631,13 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
   );
 });
 
-// MacOs component represents the UI preview
 const MacOs = memo(() => {
   const [activeTab, setActiveTab] = useState("dashboard");
   const [screenSize, setScreenSize] = useState("medium");
   const [isInView, setIsInView] = useState(false);
-  
-  // Determine if we're on a lower-powered device for animation optimization
+
   const isMobile = useMemo(() => window.innerWidth < 768, []);
 
-  // Handle responsive sizing with a debounced resize handler
   useEffect(() => {
     let resizeTimer;
     const handleResize = () => {
@@ -677,10 +651,10 @@ const MacOs = memo(() => {
         } else {
           setScreenSize("large");
         }
-      }, 100); // Debounce resize events
+      }, 100); 
     };
 
-    handleResize(); // Initial check
+    handleResize(); 
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
       clearTimeout(resizeTimer);
@@ -688,7 +662,6 @@ const MacOs = memo(() => {
     };
   }, []);
 
-  // Get container dimensions based on screen size with improved width for laptop screens
   const getContainerSize = useMemo(() => {
     switch (screenSize) {
       case "small":
@@ -719,7 +692,7 @@ const MacOs = memo(() => {
       {/* Shadow under the window */}
       <div className="absolute -bottom-6 sm:-bottom-8 left-1/2 transform -translate-x-1/2 w-[85%] h-8 bg-black/20 dark:bg-black/40 blur-xl rounded-full"></div>
 
-      {/* Background gradients - reduced for better performance */}
+      {/* Background gradients*/}
       {!isMobile && (
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
           <motion.div
@@ -791,18 +764,17 @@ const MacOs = memo(() => {
             <div className="h-[12px] w-[12px] sm:h-[14px] sm:w-[14px] rounded-full bg-green-500"></div>
           </div>
 
-          {/* Tab buttons - only show on non-small screens */}
+          {/* Tab buttons */}
           <div
             className={`${screenSize === "small" ? "hidden" : "flex"} gap-3 sm:gap-4`}
           >
             {["Dashboard", "Students", "Reports", "Settings"].map((tab) => (
               <button
                 key={tab}
-                className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md ${
-                  activeTab === tab.toLowerCase()
+                className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md ${activeTab === tab.toLowerCase()
                     ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
                     : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
-                }`}
+                  }`}
                 onClick={handleTabClick}
               >
                 {tab}
@@ -817,9 +789,8 @@ const MacOs = memo(() => {
 
         {/* Main content*/}
         <div
-          className={`grid ${
-            screenSize === "small" ? "grid-cols-1" : "grid-cols-[180px_1fr] sm:grid-cols-[200px_1fr]"
-          } h-[calc(100%-2.25rem)] sm:h-[calc(100%-2.5rem)] relative z-10`}
+          className={`grid ${screenSize === "small" ? "grid-cols-1" : "grid-cols-[180px_1fr] sm:grid-cols-[200px_1fr]"
+            } h-[calc(100%-2.25rem)] sm:h-[calc(100%-2.5rem)] relative z-10`}
         >
           {/* Sidebar */}
           <Sidebar
@@ -843,7 +814,6 @@ const MacOs = memo(() => {
         </div>
       </motion.div>
 
-      {/* Window base */}
       <div className="relative mx-auto w-[70%] sm:w-[80%] h-4 sm:h-5 mt-1 bg-gray-300 dark:bg-gray-700 rounded-b-xl"></div>
     </motion.div>
   );
@@ -852,7 +822,7 @@ const MacOs = memo(() => {
 const Hero = memo(() => {
   // Use this to detect if we're on a mobile device for optimizing animations
   const isMobile = useMemo(() => window.innerWidth < 768, []);
-  
+
   return (
     <section className="w-full pt-16 md:pt-24 pb-6 md:pb-12 relative z-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 2xl:max-w-[1600px]">
@@ -866,7 +836,7 @@ const Hero = memo(() => {
           >
             Reimagine Attendance Tracking
           </motion.div>
-          
+
           {/* Main heading with responsive sizes */}
           <motion.h1
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-3 md:mb-5 leading-tight md:leading-tight"
@@ -880,7 +850,7 @@ const Hero = memo(() => {
             </span>
             <span className="block sm:inline"> Attendance</span>
           </motion.h1>
-          
+
           {/* Description with better readability */}
           <motion.p
             className="text-base md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-5 md:mb-8 leading-relaxed"
@@ -891,7 +861,7 @@ const Hero = memo(() => {
             A powerful, reliable system to track and manage student attendance
             with real-time analytics and reporting.
           </motion.p>
-          
+
           {/* CTA Buttons with improved mobile layout */}
           <motion.div
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 md:mb-8 w-full sm:w-auto mx-auto"
@@ -926,7 +896,7 @@ const Hero = memo(() => {
               </motion.button>
             </Link>
           </motion.div>
-          
+
           {/* Social proof - optimized animations */}
           <motion.div
             className="flex justify-center items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400"
@@ -936,7 +906,7 @@ const Hero = memo(() => {
           >
             <div className="flex">
               {/* More efficient star rendering with a single animation */}
-              <motion.div 
+              <motion.div
                 className="flex"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -951,7 +921,7 @@ const Hero = memo(() => {
           </motion.div>
         </div>
       </div>
-      
+
       {/* Background accent circles */}
       <div className="absolute top-1/4 right-[-10%] md:right-[-5%] w-[200px] h-[200px] md:w-[300px] md:h-[300px] rounded-full bg-blue-100/30 dark:bg-blue-900/10 blur-3xl pointer-events-none"></div>
       <div className="absolute bottom-[-10%] left-[-10%] md:left-[-5%] w-[250px] h-[250px] md:w-[350px] md:h-[350px] rounded-full bg-indigo-100/30 dark:bg-indigo-900/10 blur-3xl pointer-events-none"></div>
@@ -1007,6 +977,356 @@ const BackgroundEffects = memo(() => {
   );
 });
 
+const Features = memo(() => {
+  return (
+    <section className="py-16 md:py-24 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Powerful Features for Modern Institutions
+          </motion.h2>
+          <motion.p
+            className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Everything you need to manage attendance efficiently and effectively
+          </motion.p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12">
+          {[
+            {
+              title: "QR Code Scanning",
+              description: "Quick and accurate attendance with our QR code scanning technology.",
+              icon: QrCode,
+              color: "blue"
+            },
+            {
+              title: "Real-time Analytics",
+              description: "Access comprehensive analytics to monitor attendance patterns.",
+              icon: TrendingUp,
+              color: "purple"
+            },
+            {
+              title: "Automated Notifications",
+              description: "Automatic alerts for absent students and low attendance rates.",
+              icon: Bell,
+              color: "amber"
+            },
+            {
+              title: "Secure Access",
+              description: "Role-based permissions and secure authentication protocols.",
+              icon: Shield,
+              color: "green"
+            },
+            {
+              title: "Detailed Reports",
+              description: "Generate comprehensive reports for analysis and compliance.",
+              icon: FileText,
+              color: "red"
+            },
+            {
+              title: "Time Tracking",
+              description: "Precise time tracking for each class and session.",
+              icon: Clock,
+              color: "indigo"
+            }
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              className="relative p-6 bg-white dark:bg-slate-800 rounded-xl hover:shadow-xl transition-shadow border border-gray-100 dark:border-slate-700"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+            >
+              <div className={`w-12 h-12 rounded-full bg-${feature.color}-100 dark:bg-${feature.color}-900/30 flex items-center justify-center mb-5 text-${feature.color}-600 dark:text-${feature.color}-400`}>
+                <feature.icon size={24} />
+              </div>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+              <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+});
+
+const Testimonials = memo(() => {
+  return (
+    <section className="py-16 md:py-24  relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white mb-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            What Our Users Say
+          </motion.h2>
+          <motion.p
+            className="max-w-2xl mx-auto text-lg text-gray-600 dark:text-gray-300"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Trusted by educational institutions worldwide
+          </motion.p>
+        </div>
+{/* Testimonials grid 
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          {[
+            {
+              name: "Dr. Robert Johnson",
+              role: "Principal, Washington High School",
+              text: "This system has transformed our attendance tracking process. The real-time analytics have helped us identify and address attendance issues promptly.",
+              avatar: "https://randomuser.me/api/portraits/men/32.jpg"
+            },
+            {
+              name: "Sarah Williams",
+              role: "Teacher, Lincoln Elementary",
+              text: "The QR code scanning feature saves me so much time every day. It's intuitive, fast, and my students actually enjoy the high-tech approach!",
+              avatar: "https://randomuser.me/api/portraits/women/44.jpg"
+            },
+            {
+              name: "Michael Chen",
+              role: "IT Director, Pacific University",
+              text: "From an IT perspective, this system is well-designed, secure, and easy to implement. The support team has been exceptional during our deployment.",
+              avatar: "https://randomuser.me/api/portraits/men/67.jpg"
+            }
+          ].map((testimonial, index) => (
+            <motion.div
+              key={index}
+              className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-slate-700"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+            >
+              <div className="flex items-center mb-4">
+                <img
+                  src={testimonial.avatar}
+                  alt={testimonial.name}
+                  className="w-12 h-12 rounded-full mr-4 object-cover"
+                />
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-900 dark:text-white">{testimonial.name}</h4>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">{testimonial.role}</p>
+                </div>
+              </div>
+              <div className="mb-4 text-yellow-400 flex">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} size={16} fill="currentColor" />
+                ))}
+              </div>
+              <p className="text-gray-700 dark:text-gray-300">"{testimonial.text}"</p>
+            </motion.div>
+          ))}
+        </div>
+        */}
+      </div>
+    </section>
+  );
+});
+
+const CallToAction = memo(() => {
+  return (
+    <section className="py-16 md:py-24 bg-gradient-to-r from-blue-600 to-indigo-700 dark:from-blue-700 dark:to-indigo-800 relative z-10 overflow-hidden">
+      {/* Background decorative elements */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute -right-40 -top-40 w-80 h-80 rounded-full bg-white opacity-10 blur-3xl"></div>
+        <div className="absolute -left-20 top-40 w-60 h-60 rounded-full bg-white opacity-10 blur-3xl"></div>
+        <div className="absolute right-20 bottom-20 w-40 h-40 rounded-full bg-white opacity-10 blur-3xl"></div>
+      </div>
+
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="text-center">
+          <motion.h2
+            className="text-3xl md:text-4xl font-bold text-white mb-6"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            Ready to Modernize Your Attendance System?
+          </motion.h2>
+          <motion.p
+            className="text-xl text-blue-100 mb-8 max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+          >
+            Join thousands of educational institutions that have transformed their attendance management with our platform.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-col sm:flex-row justify-center gap-4"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <Link to="/register">
+              <motion.button
+                className="px-6 py-3 bg-white text-blue-600 font-medium rounded-lg shadow-lg hover:bg-gray-100 transition-colors"
+                whileHover={{ y: -3, boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)" }}
+                whileTap={{ y: 0 }}
+              >
+                Get Started for Free
+              </motion.button>
+            </Link>
+
+            <Link to="/contact">
+              <motion.button
+                className="px-6 py-3 bg-transparent text-white font-medium rounded-lg border border-white/30 hover:bg-white/10 transition-colors"
+                whileHover={{ y: -3 }}
+                whileTap={{ y: 0 }}
+              >
+                Contact Sales
+              </motion.button>
+            </Link>
+          </motion.div>
+
+          <motion.div
+            className="mt-8 text-blue-100 flex items-center justify-center"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+          >
+            <Shield size={20} className="mr-2" />
+            <span>No credit card required. Free 30-day trial.</span>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+});
+
+const Footer = memo(() => {
+  return (
+    <footer className="bg-white dark:bg-slate-800 pt-16 pb-12 border-t border-gray-200 dark:border-slate-700 relative z-10">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
+          {/* Company info */}
+          <div className="col-span-2 md:col-span-1">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">DP Attendance</h3>
+            <p className="text-gray-600 dark:text-gray-300 mb-4 max-w-xs">
+              Modern attendance management system made by student who learns from DP Education.
+            </p>
+            <div className="flex space-x-4">
+              {/* Social media links */}
+              {[
+                { icon: "M22 4s-2.2 2.5-3.6 3c-1.4-1.5-3.5-2-5.5-1.3C10.9 6.5 9.8 8.2 9.8 10v.8c-3.7.1-6.9-1.8-9-4.5 0 0-4 9 5 13-2.2 1.5-4.7 2.1-7.2 2 9 5 20 0 20-11.5 0-.3 0-.5-.1-.7C20.3 7.8 22 4 22 4z" },
+                { icon: "M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z M2 9h4v12H2z M4 6a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" },
+                { icon: "M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" },
+                { icon: "M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.8v8.4C4 18.39 5.61 20 7.8 20h8.4a3.6 3.6 0 0 0 3.8-3.8V7.8C20 5.61 18.39 4 16.2 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z" }
+              ].map((social, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="w-8 h-8 rounded-full bg-gray-100 dark:bg-slate-700 flex items-center justify-center text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                  aria-label={`Social media link ${index + 1}`}
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" d={social.icon} />
+                  </svg>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Quick links */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white mb-4">Product</h4>
+            <ul className="space-y-2">
+              {[
+                "Features", "Reviews"
+              ].map((item, index) => (
+                <li key={index}>
+                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Resources */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white mb-4">Resources</h4>
+            <ul className="space-y-2">
+              {[
+                "Attendance Tracker", "Generate Reports", "Whatsapp Support"
+              ].map((item, index) => (
+                <li key={index}>
+                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h4 className="text-sm font-semibold uppercase tracking-wider text-gray-900 dark:text-white mb-4">Company</h4>
+            <ul className="space-y-2">
+              {[
+                "About Us", "Contact", "Privacy Policy"
+              ].map((item, index) => (
+                <li key={index}>
+                  <a href="#" className="text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors">{item}</a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div className="border-t border-gray-200 dark:border-slate-700 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center">
+            <p className="text-gray-500 dark:text-gray-400 text-sm">
+              &copy; {new Date().getFullYear()} DP Attendance. All rights reserved.
+            </p>
+            <div className="flex space-x-6 mt-4 md:mt-0">
+              {[
+                "Privacy Policy", "Terms of Service", "Cookie Policy", "Contact Us"
+              ].map((item, index) => (
+                <a
+                  key={index}
+                  href="#"
+                  className="text-sm text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                >
+                  {item}
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+});
+
 const HomePage = () => {
   return (
     <div className="min-h-screen flex flex-col dark:bg-slate-900 bg-gray-50 relative overflow-hidden">
@@ -1020,6 +1340,10 @@ const HomePage = () => {
       <div className="w-full flex justify-center items-center py-10 md:py-20 relative z-20">
         <MacOs />
       </div>
+
+      <Features />
+      <Testimonials />
+      <Footer />
     </div>
   );
 };
