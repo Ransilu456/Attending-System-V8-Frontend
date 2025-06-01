@@ -2,7 +2,6 @@ import api from './api';
 import attendanceService from './attendanceServices';
 import authService from './authService';
 import cryptoService from './cryptoService';
-import messagingService from './messagingService';
 import qrCodeService from './qrCodeService';
 import studentService from './studentService';
 
@@ -11,7 +10,6 @@ export {
   attendanceService,
   authService,
   cryptoService,
-  messagingService,
   qrCodeService,
   studentService
 };
@@ -21,7 +19,6 @@ export default {
   attendanceService,
   authService,
   cryptoService,
-  messagingService,
   qrCodeService,
   studentService
 }; 
