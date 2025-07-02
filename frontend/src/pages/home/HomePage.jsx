@@ -20,6 +20,7 @@ import {
   TrendingUp,
   Clock,
   Shield,
+  Pencil, Trash,
   Mail,
 } from "lucide-react";
 import ThemeToggle from "../../components/ui/ThemeToggle";
@@ -84,8 +85,8 @@ const Navbar = memo(() => {
   return (
     <motion.div
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-transparent ${scrolled
-          ? "backdrop-blur-md bg-white/90 dark:bg-slate-900/95 shadow-[0_4px_20px_rgba(255,255,255,0.3)] dark:shadow-slate-900/30"
-          : "backdrop-blur-sm bg-white/70 dark:bg-slate-900/80"
+        ? "backdrop-blur-md bg-white/90 dark:bg-slate-900/95 shadow-[0_4px_20px_rgba(255,255,255,0.3)] dark:shadow-slate-900/30"
+        : "backdrop-blur-sm bg-white/70 dark:bg-slate-900/80"
         } border-b ${scrolled
           ? "border-gray-200/70 dark:border-slate-800/80"
           : "border-transparent"
@@ -124,7 +125,7 @@ const Navbar = memo(() => {
 
           {/* Right actions */}
           <div className="flex items-center space-x-3 md:space-x-4">
-          
+
             <motion.div
               className="p-1.5 rounded-lg bg-gray-100 dark:bg-slate-800 transition-colors"
               whileHover={{ scale: 1.05 }}
@@ -251,15 +252,15 @@ const NavigationItem = memo(({ item, index, activeTab, setActiveTab }) => {
     >
       <button
         className={`group flex items-center justify-around p-2.5 w-full text-sm gap-2 font-medium rounded-lg ${activeTab === item.name.toLowerCase()
-            ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
-            : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
+          ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
+          : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
           }`}
         onClick={() => setActiveTab(item.name.toLowerCase())}
       >
         <item.icon
           className={`mr-0 h-5 w-5 flex-shrink-0 ${activeTab === item.name.toLowerCase()
-              ? "text-blue-600 dark:text-blue-400"
-              : "text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300"
+            ? "text-blue-600 dark:text-blue-400"
+            : "text-gray-400 dark:text-gray-500 group-hover:text-gray-500 dark:group-hover:text-gray-300"
             }`}
           aria-hidden="true"
         />
@@ -360,7 +361,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
         >
           <div className="flex justify-between items-start">
             <div>
-              <h2 className="text-lg sm:text-xl font-bold mb-1">Welcome back, Teacher!</h2>
+              <h2 className="text-lg sm:text-xl font-bold mb-1 text-white">Welcome back, Teacher!</h2>
               <p className="text-blue-100 text-xs sm:text-sm">
                 Here's what's happening with your class today.
               </p>
@@ -460,7 +461,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
           </div>
         </motion.div>
 
-        
+
         <motion.div
           className="col-span-12 md:col-span-7 bg-white dark:bg-slate-800 rounded-lg sm:rounded-xl shadow p-3 sm:p-5"
           whileHover={isSmallScreen ? {} : {
@@ -489,7 +490,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
           </div>
 
           <div className="relative pt-6">
-            
+
             <div className="absolute left-0 right-0 border-t border-dashed border-blue-300 dark:border-blue-700 opacity-40" style={{ top: '20%' }}></div>
             <div className="absolute left-1 text-[9px] sm:text-[10px] text-blue-400 dark:text-blue-500" style={{ top: 'calc(20% - 12px)' }}>80%</div>
             <div className="absolute left-0 right-0 h-[1px] bg-gray-200 dark:bg-gray-700 opacity-30" style={{ top: '25%' }}></div>
@@ -498,7 +499,7 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
 
             <div className="mt-1 h-52 sm:h-64 flex items-end justify-between gap-1 sm:gap-2">
               {[85, 92, 78, 89, 96, 88, 75].map((value, index) => {
-              
+
                 const getBarColor = () => {
                   if (value >= 90) return 'from-blue-500 to-indigo-500 dark:from-blue-500 dark:to-indigo-500';
                   if (value >= 80) return 'from-blue-500 to-blue-400 dark:from-blue-500 dark:to-blue-400';
@@ -511,12 +512,12 @@ const DashboardContent = memo(({ activeTab, screenSize }) => {
                     className="relative group"
                     style={{ height: "100%", width: "100%" }}
                   >
-                    
+
                     <div
                       className={`absolute bottom-0 w-full bg-gradient-to-t ${getBarColor()} rounded-t-md shadow-sm group-hover:shadow-md transition-all duration-200`}
                       style={{ height: `${value}%` }}
                     >
-                      
+
                       <div className="absolute top-0 left-0 right-0 h-1 bg-white opacity-30 rounded-t-md"></div>
                     </div>
 
@@ -645,10 +646,10 @@ const MacOs = memo(() => {
         } else {
           setScreenSize("large");
         }
-      }, 100); 
+      }, 100);
     };
 
-    handleResize(); 
+    handleResize();
     window.addEventListener("resize", handleResize, { passive: true });
     return () => {
       clearTimeout(resizeTimer);
@@ -742,7 +743,7 @@ const MacOs = memo(() => {
         }}
         transition={{ duration: 0.3 }}
       >
-    
+
         <div
           className="absolute -bottom-20 -right-20 w-[300px] h-[300px] rounded-full bg-blue-400 opacity-20 blur-[100px] z-0"
         />
@@ -765,8 +766,8 @@ const MacOs = memo(() => {
               <button
                 key={tab}
                 className={`text-xs sm:text-sm px-2 sm:px-3 py-1 rounded-md ${activeTab === tab.toLowerCase()
-                    ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
-                    : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
+                  ? "bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 shadow-sm"
+                  : "text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-slate-700/50 hover:text-gray-900 dark:hover:text-white"
                   }`}
                 onClick={handleTabClick}
               >
@@ -854,7 +855,7 @@ const Hero = memo(() => {
             with real-time analytics and reporting.
           </motion.p>
 
-                    <motion.div
+          <motion.div
             className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 md:mb-8 w-full sm:w-auto mx-auto"
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
@@ -888,7 +889,7 @@ const Hero = memo(() => {
             </Link>
           </motion.div>
 
-        
+
           <motion.div
             className="flex justify-center items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-gray-500 dark:text-gray-400"
             initial={{ opacity: 0 }}
@@ -896,7 +897,7 @@ const Hero = memo(() => {
             transition={{ duration: 0.4, delay: 0.5 }}
           >
             <div className="flex">
-             
+
               <motion.div
                 className="flex"
                 initial={{ opacity: 0 }}
@@ -1034,22 +1035,34 @@ const Features = memo(() => {
           ].map((feature, index) => (
             <motion.div
               key={index}
-              className="relative p-6 bg-white dark:bg-slate-800 rounded-xl hover:shadow-xl transition-shadow border border-gray-100 dark:border-slate-700"
+              className="relative p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 transition-shadow"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              whileHover={{
+                y: -8,
+                scale: 1.03,
+                boxShadow: "0px 8px 30px rgba(255, 255, 255, 0.15)",
+                transition: { type: "spring", stiffness: 300, damping: 20 },
+              }}
             >
-              <div className={`w-12 h-12 rounded-full bg-${feature.color}-100 dark:bg-${feature.color}-900/30 flex items-center justify-center mb-5 text-${feature.color}-600 dark:text-${feature.color}-400`}>
+              <div
+                className={`w-12 h-12 rounded-full bg-${feature.color}-100 dark:bg-${feature.color}-900/30 flex items-center justify-center mb-5 text-${feature.color}-600 dark:text-${feature.color}-400`}
+              >
                 <feature.icon size={24} />
               </div>
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">{feature.title}</h3>
+              <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">
+                {feature.title}
+              </h3>
               <p className="text-gray-600 dark:text-gray-300">{feature.description}</p>
             </motion.div>
+
           ))}
         </div>
       </div>
+
+
     </section>
   );
 });
@@ -1245,8 +1258,8 @@ const HomePage = () => {
       <BackgroundEffects />
 
       <div className="h-20"></div>
-      
       <Navbar />
+
       <Hero />
 
       <div className="w-full flex justify-center items-center py-10 md:py-20 relative z-20">
@@ -1254,6 +1267,7 @@ const HomePage = () => {
       </div>
 
       <Features />
+
       <Footer />
     </div>
   );
