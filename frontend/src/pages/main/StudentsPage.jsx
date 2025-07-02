@@ -235,191 +235,138 @@ const StudentsPage = () => {
         </motion.div>
 
         {/* Students Table */}
-        <motion.div variants={itemVariants} className="mt-8 flex flex-col">
-          <div className="-my-2 -mx-4 overflow-x-auto sm:-mx-6 lg:-mx-8">
-            <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
-              <div className="overflow-hidden shadow-md rounded-lg border border-gray-200 dark:border-slate-700">
-                <div className="overflow-y-auto max-h-[500px]">
-                <table className="min-w-full table-fixed divide-y divide-gray-300 dark:divide-slate-700">
-                  <thead className="bg-gray-50 dark:bg-slate-800">
-                    <tr>
-                      <th
-                        scope="col"
-                        className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6"
+<motion.div variants={itemVariants} className="mt-8 flex flex-col">
+  <div className="-my-2 -mx-4 sm:-mx-6 lg:-mx-8">
+    <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
+      <div className="overflow-hidden shadow-md rounded-lg border border-gray-200 dark:border-slate-700">
+        {/* Fixed Header */}
+        <table className="min-w-full table-fixed divide-y divide-gray-300 dark:divide-slate-700">
+          <thead className="block bg-gray-50 dark:bg-slate-800">
+            <tr className="table w-full table-fixed">
+              <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6">Name</th>
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Index Number</th>
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Email</th>
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Status</th>
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Last Attendance</th>
+              <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Actions</th>
+            </tr>
+          </thead>
+        </table>
+
+        {/* Scrollable Body */}
+        <div className="max-h-[500px] overflow-y-auto block">
+          <table className="min-w-full table-fixed divide-y divide-gray-200 dark:divide-slate-700 bg-white dark:bg-slate-800">
+            <tbody className="block w-full">
+              {loading ? (
+                <tr className="table w-full table-fixed">
+                  <td colSpan="6" className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    <div className="flex justify-center items-center">
+                      <svg
+                        className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
                       >
-                        Name
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white"
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Loading students...
+                    </div>
+                  </td>
+                </tr>
+              ) : filteredStudents.length === 0 ? (
+                <tr className="table w-full table-fixed">
+                  <td colSpan="6" className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 text-center">
+                    No students found
+                  </td>
+                </tr>
+              ) : (
+                filteredStudents.map((student, index) => (
+                  <motion.tr
+                    key={student._id}
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: index * 0.05 }}
+                    className="table w-full table-fixed hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150"
+                  >
+                    <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6">
+                      {student.name}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                      {student.indexNumber}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                      {student.student_email}
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                      <span
+                        className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
+                          student.status === "active"
+                            ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
+                            : "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300"
+                        }`}
                       >
-                        Index Number
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white"
-                      >
-                        Email
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white"
-                      >
-                        Status
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white"
-                      >
-                        Last Attendance
-                      </th>
-                      <th
-                        scope="col"
-                        className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white"
-                      >
-                        Actions
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-gray-200 dark:divide-slate-700 bg-white dark:bg-slate-800 max-h-[500px] overflow-y-auto w-full">
-                    {loading ? (
-                      <tr>
-                        <td
-                          colSpan="6"
-                          className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 text-center"
+                        {student.lastAttendance?.status || "active"}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
+                      {student.lastAttendance
+                        ? new Date(student.lastAttendance).toLocaleString(undefined, {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                            hour: "2-digit",
+                            minute: "2-digit",
+                          })
+                        : "Never"}
+                    </td>
+                    <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                      <div className="flex justify-end space-x-2">
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => viewAttendanceHistory(student._id)}
+                          className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
+                          title="View Attendance History"
                         >
-                          <div className="flex justify-center items-center">
-                            <svg
-                              className="animate-spin -ml-1 mr-3 h-5 w-5 text-blue-500"
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                            >
-                              <circle
-                                className="opacity-25"
-                                cx="12"
-                                cy="12"
-                                r="10"
-                                stroke="currentColor"
-                                strokeWidth="4"
-                              ></circle>
-                              <path
-                                className="opacity-75"
-                                fill="currentColor"
-                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                              ></path>
-                            </svg>
-                            Loading students...
-                          </div>
-                        </td>
-                      </tr>
-                    ) : filteredStudents.length === 0 ? (
-                      <tr>
-                        <td
-                          colSpan="6"
-                          className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 text-center"
+                          <Clock className="h-5 w-5" aria-hidden="true" />
+                          <span className="sr-only">View Attendance History for {student.name}</span>
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => openEditModal(student)}
+                          className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
                         >
-                          No students found
-                        </td>
-                      </tr>
-                    ) : (
-                      filteredStudents.map((student, index) => (
-                        <motion.tr
-                          key={student._id}
-                          initial={{ opacity: 0, y: 10 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.05 }}
-                          className="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors duration-150"
+                          <Pencil className="h-5 w-5" aria-hidden="true" />
+                          <span className="sr-only">Edit {student.name}</span>
+                        </motion.button>
+                        <motion.button
+                          whileHover={{ scale: 1.1 }}
+                          whileTap={{ scale: 0.9 }}
+                          onClick={() => openDeleteModal(student)}
+                          className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
                         >
-                          <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-white sm:pl-6">
-                            {student.name}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
-                            {student.indexNumber}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
-                            {student.student_email}
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
-                            <span
-                              className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                                student.status === "active"
-                                  ? "bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300"
-                                  : student.status !== "active"
-                                  ? "bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-300"
-                                  : "bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300"
-                              }`}
-                            >
-                              {student.lastAttendance?.status || "active"}
-                            </span>
-                          </td>
-                          <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 dark:text-gray-300">
-                            {student.lastAttendance
-                              ? new Date(student.lastAttendance).toLocaleString(
-                                  undefined,
-                                  {
-                                    year: "numeric",
-                                    month: "short",
-                                    day: "numeric",
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                  }
-                                )
-                              : "Never"}
-                          </td>
-                          <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                            <div className="flex justify-end space-x-2">
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() =>
-                                  viewAttendanceHistory(student._id)
-                                }
-                                className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
-                                title="View Attendance History"
-                              >
-                                <Clock className="h-5 w-5" aria-hidden="true" />
-                                <span className="sr-only">
-                                  View Attendance History for {student.name}
-                                </span>
-                              </motion.button>
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => openEditModal(student)}
-                                className="text-blue-600 dark:text-blue-400 hover:text-blue-900 dark:hover:text-blue-300"
-                              >
-                                <Pencil
-                                  className="h-5 w-5"
-                                  aria-hidden="true"
-                                />
-                                <span className="sr-only">
-                                  Edit {student.name}
-                                </span>
-                              </motion.button>
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => openDeleteModal(student)}
-                                className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300"
-                              >
-                                <Trash className="h-5 w-5" aria-hidden="true" />
-                                <span className="sr-only">
-                                  Delete {student.name}
-                                </span>
-                              </motion.button>
-                            </div>
-                          </td>
-                        </motion.tr>
-                      ))
-                    )}
-                  </tbody>
-                </table>
-                  </div>
-              </div>
-            </div>
-          </div>
-        </motion.div>
+                          <Trash className="h-5 w-5" aria-hidden="true" />
+                          <span className="sr-only">Delete {student.name}</span>
+                        </motion.button>
+                      </div>
+                    </td>
+                  </motion.tr>
+                ))
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</motion.div>
+
       </div>
 
       {/* Edit Student Modal */}
