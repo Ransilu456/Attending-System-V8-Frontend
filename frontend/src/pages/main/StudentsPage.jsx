@@ -254,7 +254,7 @@ const StudentsPage = () => {
         </table>
 
         {/* Scrollable Body */}
-        <div className="max-h-[500px] overflow-y-auto block">
+        <div className="max-h-[500px] overflow-y-auto block w-full">
           <table className="min-w-full table-fixed divide-y divide-gray-200 dark:divide-slate-700 bg-white dark:bg-slate-800">
             <tbody className="block w-full">
               {loading ? (
