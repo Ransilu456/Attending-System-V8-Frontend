@@ -1035,7 +1035,7 @@ const Features = memo(() => {
           ].map((feature, index) => (
             <motion.div
               key={index}
-              className="relative p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 transition-shadow"
+              className="relative p-6 bg-white dark:bg-slate-800 rounded-xl border border-gray-100 dark:border-slate-700 shadow-[0px 8px 30px rgba(255, 255, 255, 0.15)] dark:shadow-[0px 8px 30px rgba(0, 0, 0, 0.5)] transition-shadow"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
