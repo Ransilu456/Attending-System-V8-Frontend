@@ -1342,7 +1342,7 @@ const HomePage = () => {
       </div>
 
       <Features />
-      <Testimonials />
+      
       <Footer />
     </div>
   );
