@@ -1043,7 +1043,6 @@ const Features = memo(() => {
               whileHover={{
                 y: -8,
                 scale: 1.03,
-                boxShadow: "0px 8px 30px rgba(255, 255, 255, 0.15)",
                 transition: { type: "spring", stiffness: 300, damping: 20 },
               }}
             >
