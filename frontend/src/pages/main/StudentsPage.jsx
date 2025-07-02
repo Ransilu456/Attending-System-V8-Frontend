@@ -169,7 +169,7 @@ const StudentsPage = () => {
       animate="enter"
       exit="exit"
       variants={pageVariants}
-      className="py-6 dark:bg-slate-900 transition-colors duration-200"
+      className="py-6 dark:bg-slate-900 transition-colors duration-200 w-full"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
         <motion.div variants={itemVariants} className="flex items-center mb-6">
