@@ -83,8 +83,8 @@ const Navbar = memo(() => {
 
   return (
     <motion.div
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out ${scrolled
-          ? "backdrop-blur-md bg-white/90 dark:bg-slate-900/95 shadow-md dark:shadow-slate-900/30"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ease-in-out bg-transparent ${scrolled
+          ? "backdrop-blur-md bg-white/90 dark:bg-slate-900/95 shadow-[0_4px_20px_rgba(255,255,255,0.3)] dark:shadow-slate-900/30"
           : "backdrop-blur-sm bg-white/70 dark:bg-slate-900/80"
         } border-b ${scrolled
           ? "border-gray-200/70 dark:border-slate-800/80"
@@ -1245,8 +1245,8 @@ const HomePage = () => {
       <BackgroundEffects />
 
       <div className="h-20"></div>
+      
       <Navbar />
-
       <Hero />
 
       <div className="w-full flex justify-center items-center py-10 md:py-20 relative z-20">
@@ -1254,7 +1254,6 @@ const HomePage = () => {
       </div>
 
       <Features />
-      
       <Footer />
     </div>
   );
